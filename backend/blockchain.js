@@ -14,15 +14,22 @@ class Blockchain {
   }
 
   addTransaction(transaction) {
-    this.transactions.push(transaction);
     const { type, value, newValue } = transaction;
     const index = this.state.indexOf(value);
-    if (type === TRANSACTION_TYPE.UPDATE && index !== -1) {
+    const newValueIndex = this.state.indexOf(newValue);
+    if (
+      type === TRANSACTION_TYPE.UPDATE &&
+      index !== -1 &&
+      newValueIndex === -1
+    ) {
       this.state.splice(index, 1, newValue);
+      this.transactions.push(transaction);
     } else if (type === TRANSACTION_TYPE.CREATE && index === -1) {
       this.state.push(value);
+      this.transactions.push(transaction);
     } else if (type === TRANSACTION_TYPE.DELETE && index !== -1) {
       this.state.splice(index, 1);
+      this.transactions.push(transaction);
     }
   }
 }

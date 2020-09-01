@@ -8,7 +8,6 @@ class InputComponent extends React.PureComponent {
     return (
       <TextField
         id="standard-basic"
-        label="Standard"
         onChange={onChange}
         value={value}
       />

@@ -7,16 +7,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-const port = process.env.PORT;
+const port = 3001;
 const Blockchain = require("./blockchain");
 const TRANSACTION_TYPE = require("./utils/index");
 
 const blockchain = new Blockchain();
-
-for (let i = 0; i < 10; i++) {
-  const transaction = createTransaction(TRANSACTION_TYPE.CREATE, i);
-  blockchain.addTransaction(transaction);
-}
 
 // eslint-disable-next-line no-unused-vars
 app.use((error, req, res, next) => {
@@ -33,7 +28,7 @@ function createTransaction(type, value, newValue) {
 
 app.post("/", (req, res) => {
   const { value } = req.body;
-  if (value === null) {
+  if (value === null || value === "") {
     res.status(400).send({ error: "Values can not be null" });
   } else {
     const transaction = createTransaction(TRANSACTION_TYPE.CREATE, value);
@@ -45,7 +40,7 @@ app.post("/", (req, res) => {
 
 app.patch("/", (req, res) => {
   const { value, newValue } = req.body;
-  if (value === null || newValue === null) {
+  if (value === null || newValue === null || value === "" || newValue === "") {
     res.status(400).send({ error: "Values can not be null" });
   } else {
     const transaction = createTransaction(
@@ -60,7 +55,7 @@ app.patch("/", (req, res) => {
 
 app.delete("/", (req, res) => {
   const { value } = req.body;
-  if (value === null) {
+  if (value === null || value === "") {
     res.status(400).send({ error: "Values can not be null" });
   } else {
     const transaction = createTransaction(TRANSACTION_TYPE.DELETE, value);

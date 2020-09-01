@@ -74,6 +74,29 @@ describe("Blockchain Class", function () {
     expect(blockchain.state[1]).to.equals("Test3");
   });
 
+  it("Update State that already exists", function () {
+    const addItems = ["Test1", "Test2"];
+    _.forEach(addItems, (item) => {
+      const transaction = {
+        type: TRANSACTION_TYPE.CREATE,
+        value: item,
+      };
+
+      blockchain.addTransaction(transaction);
+    });
+
+    const transaction = {
+      type: TRANSACTION_TYPE.UPDATE,
+      value: "Test2",
+      newValue: "Test1",
+    };
+
+    blockchain.addTransaction(transaction);
+    expect(blockchain.state.length).to.equals(2);
+    expect(blockchain.state[0]).to.equals("Test1");
+    expect(blockchain.state[1]).to.equals("Test2");
+  });
+
   it("Update State that doesn't exist", function () {
     const addItems = ["Test1", "Test2"];
     _.forEach(addItems, (item) => {
