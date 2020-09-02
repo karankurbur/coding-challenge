@@ -1,11 +1,12 @@
-import React from 'react';
+import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
 import PropTypes from 'prop-types';
-import {
-  Grid, Button, Modal, Container,
-} from '@material-ui/core';
-import Input from './Input';
+import React from 'react';
 import { sendRequest } from '../utils/api';
 import { endpoint } from '../utils/constants';
+import Input from './Input';
 
 class StateComponent extends React.Component {
   constructor(props) {
@@ -17,24 +18,37 @@ class StateComponent extends React.Component {
     };
   }
 
+  /**
+   * Opens edit modal.
+   */
   onClick = () => {
     this.setState({
       open: true,
     });
   };
 
+  /**
+   * Handles modal close.
+   */
   handleClose = () => {
     this.setState({
       open: false,
     });
   }
 
+  /**
+   * Handles edit new value.
+   * @param {*} event
+   */
   edit = (event) => {
     this.setState({
       newValue: event.target.value,
     });
   }
 
+  /**
+   * Sends change task request to server.
+   */
   saveEdit = async () => {
     const { value, reload } = this.props;
     const { newValue } = this.state;
@@ -51,6 +65,9 @@ class StateComponent extends React.Component {
     reload();
   }
 
+  /**
+   * Sends delete task request to server.
+   */
   delete = async () => {
     const { value, reload } = this.props;
     const data = {
@@ -64,6 +81,9 @@ class StateComponent extends React.Component {
     reload();
   }
 
+  /**
+   * Renders page
+   */
   render() {
     const { value } = this.props;
     const { newValue } = this.state;
@@ -79,7 +99,7 @@ class StateComponent extends React.Component {
 
         container
         direction="row"
-        justify="start"
+        justify="center"
         alignItems="center"
       >
         Task:

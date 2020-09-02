@@ -161,17 +161,3 @@ describe("Blockchain Class", function () {
     expect(blockchain.state[1]).to.equals("Test2");
   });
 });
-
-// describe("Redeem Endpoints", function () {
-//   before(async function () {});
-
-//   beforeEach(async function () {});
-
-//   it("Succesfully create a redeem.", async function () {
-//     const json = {};
-//     const res = await chai.request(app).post("/test").send(json);
-//     expect(res.statusCode).to.equals(200);
-//   });
-
-//   after(async function () {});
-// });

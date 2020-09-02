@@ -1,6 +1,6 @@
-import React, { button } from 'react';
-import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class ButtonComponent extends React.PureComponent {
   render() {

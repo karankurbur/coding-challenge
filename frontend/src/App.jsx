@@ -1,14 +1,14 @@
 /* eslint-disable react/sort-comp */
+import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
 import React from 'react';
 import './App.css';
-import Transaction from './components/Transaction';
 import Input from './components/Input';
 import State from './components/State';
+import Transaction from './components/Transaction';
 import { doGet, sendRequest } from './utils/api';
-import { endpoint, getTransactions, getState } from './utils/constants';
+import { endpoint, getState, getTransactions } from './utils/constants';
 
 class App extends React.Component {
   constructor(props) {
@@ -21,15 +21,25 @@ class App extends React.Component {
     };
   }
 
+  /**
+   * Loads state and transctions from server on page load.
+   */
   componentDidMount() {
     this.load();
   }
 
+  /**
+   * Loads state and transctions from server.
+   */
   load = () => {
     this.loadTransactionData();
     this.loadStateData();
   }
 
+  /**
+   * Change handler for transaction amount drop down.
+   * @param {*} event
+   */
   handleChange = (event) => {
     this.setState({
       transactionCount: event.target.value,
@@ -38,6 +48,9 @@ class App extends React.Component {
     });
   };
 
+  /**
+   * Saves state information from server
+   */
    loadStateData = async () => {
      const url = endpoint + getState;
      const data = await doGet(url);
@@ -46,22 +59,29 @@ class App extends React.Component {
      });
    }
 
-   async loadTransactionData() {
-     const { transactionCount } = this.state;
-     const url = endpoint + getTransactions + transactionCount;
+    loadTransactionData = async () => {
+      const { transactionCount } = this.state;
+      const url = endpoint + getTransactions + transactionCount;
 
-     const data = await doGet(url);
-     this.setState({
-       transactionData: data.transactions,
-     });
-   }
+      const data = await doGet(url);
+      this.setState({
+        transactionData: data.transactions,
+      });
+    }
 
+    /**
+     * Saves new task to state.
+     * @param {*} event
+     */
    createTaskOnChange = (event) => {
      this.setState({
        newTask: event.target.value,
      });
    }
 
+   /**
+    * Sends post request to create new state
+    */
    createTask = async () => {
      const { newTask } = this.state;
 
@@ -76,6 +96,9 @@ class App extends React.Component {
      this.load();
    }
 
+   /**
+    * Renders page
+    */
    render() {
      const {
        newTask, transactionCount, transactionData, stateData,
@@ -83,15 +106,17 @@ class App extends React.Component {
      return (
 
        <Grid>
-         <Input value={newTask} onChange={this.createTaskOnChange} />
-         <Button onClick={this.createTask}>
-           Create Task
-         </Button>
+         <Grid>
+           <Input value={newTask} onChange={this.createTaskOnChange} />
+           <Button onClick={this.createTask}>
+             Create Task
+           </Button>
+
+         </Grid>
          <Grid
            container
            direction="row"
          >
-
            <Grid
              item
            >

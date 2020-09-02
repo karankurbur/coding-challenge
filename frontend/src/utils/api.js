@@ -1,3 +1,10 @@
+/**
+ * Sends HTTP request with json body and parses json response
+ *
+ * @param {string} url
+ * @param {JSON} data
+ * @param {string} type
+ */
 async function sendRequest(url, data, type) {
   try {
     const response = await fetch(url, {
@@ -14,6 +21,10 @@ async function sendRequest(url, data, type) {
   }
 }
 
+/**
+ * Sends get request and parses json response.
+ * @param {string} url
+ */
 async function doGet(url) {
   try {
     const response = await fetch(url, {

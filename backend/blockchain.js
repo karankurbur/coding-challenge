@@ -6,6 +6,10 @@ class Blockchain {
     this.transactions = [];
   }
 
+  /**
+   * Returns the X most recent transactions
+   * @param {integer} amount
+   */
   getRecentTransactions(amount) {
     const transactionLength = this.transactions.length;
     return this.transactions
@@ -13,6 +17,10 @@ class Blockchain {
       .reverse();
   }
 
+  /**
+   * Updates a task in the list if the transaction is valid.
+   * @param {JSON} transaction
+   */
   addTransaction(transaction) {
     const { type, value, newValue } = transaction;
     const index = this.state.indexOf(value);

@@ -1,6 +1,6 @@
-import React, { button } from 'react';
-import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
+import PropTypes from 'prop-types';
+import React from 'react';
 
 class InputComponent extends React.PureComponent {
   render() {
